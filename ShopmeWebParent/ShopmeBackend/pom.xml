@@ -16,7 +16,13 @@
 	</properties>
 	<dependencies>
 
-	</dependencies>
+        <dependency>
+            <groupId>com.shopme</groupId>
+            <artifactId>ShopmeCommon</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
