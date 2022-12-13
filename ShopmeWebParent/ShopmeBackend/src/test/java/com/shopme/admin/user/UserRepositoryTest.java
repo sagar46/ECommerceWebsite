@@ -46,4 +46,32 @@ public class UserRepositoryTest {
             System.out.println(user);
         });
     }
+    @Test
+    public void testGetUserByID(){
+        User user = userRepository.findById(1).get();
+        System.out.println(user);
+        assertThat(user).isNotNull();
+    }
+
+    @Test
+    public void testUpdateUserDetails(){
+        User user = userRepository.findById(2).get();
+        user.setEnabled(true);
+        user.setEmail("ravi0303@gmail.com");
+    }
+
+    @Test
+    public void testUpdateUserRoles(){
+        User user = userRepository.findById(2).get();
+        Role roleEditor = new Role(3);
+        Role roleSalesPerson = new Role(2);
+        user.getRoles().remove(roleEditor);
+        user.addRole(roleSalesPerson);
+        userRepository.save(user);
+    }
+    @Test
+    public  void testDeleteUserById(){
+        Integer userId = 2;
+        userRepository.deleteById(userId);
+    }
 }
