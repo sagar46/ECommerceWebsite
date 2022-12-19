@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Transactional
 public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -59,5 +61,15 @@ public class UserService {
         } catch (NoSuchElementException ex){
             throw  new UserNotFoundException("Could not find any user with id " + id);
         }
+    }
+    public void delete(Integer id) throws UserNotFoundException {
+        Long countById = userRepository.countById(id);
+        if(countById == null || countById ==0){
+            throw new UserNotFoundException("Could not find any user with id "+ id);
+        }
+        userRepository.deleteById(id);
+    }
+    public void updateUserEnabledStatus(Integer id, boolean enabled){
+        userRepository.updateEnableStatus(id,enabled);
     }
 }
